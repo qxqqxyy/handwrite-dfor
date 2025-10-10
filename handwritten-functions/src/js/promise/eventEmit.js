@@ -1,0 +1,45 @@
+/*
+ * @Author: haileyguo haileyguo@tencent.com
+ * @Date: 2025-04-27 19:16:39
+ * @LastEditors: haileyguo haileyguo@tencent.com
+ * @LastEditTime: 2025-04-27 19:22:37
+ * @FilePath: /.leetcode/handwrite/eventEmit.js
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
+class EventEmit{
+    constructor(){
+        this.events = {}
+    };
+    on(event, cb) { 
+        if (!this.events[event]) {
+            this.events[event] = [cb];
+        } else {
+            this.events.push(cb);
+        }
+    };
+    once(event,cb) {
+        const fn = () => {
+            cb();
+            this.off(event, fn);
+        }
+        this.on(event, fn);
+    };
+    emit(event, ...args) {
+        if (this.events[event]) {
+            this.events[event].forEach(cb => {
+                cb(...args);
+            })
+        }
+     };
+    off(event,cb) {
+        if (this.events[event]) {
+            this.events[event].filter(item => item !== cb);
+        }
+    }
+}
+const events = new EventEmit();
+const func = str => console.log(str);
+events.on('say', func);
+events.emit('say', 'hello');
+events.off('say', func);
+console.log(events);
