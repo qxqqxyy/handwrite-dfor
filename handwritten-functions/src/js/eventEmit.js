@@ -8,29 +8,29 @@
  */
 class EventEmit{
     constructor(){
-        this.events = {}
-    };
+        this.events = {};
+    }
     on(event, cb) { 
         if (!this.events[event]) {
             this.events[event] = [cb];
         } else {
             this.events.push(cb);
         }
-    };
+    }
     once(event,cb) {
         const fn = () => {
             cb();
             this.off(event, fn);
-        }
+        };
         this.on(event, fn);
-    };
+    }
     emit(event, ...args) {
         if (this.events[event]) {
             this.events[event].forEach(cb => {
                 cb(...args);
-            })
+            });
         }
-     };
+     }
     off(event,cb) {
         if (this.events[event]) {
             this.events[event].filter(item => item !== cb);

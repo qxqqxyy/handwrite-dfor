@@ -1,0 +1,14 @@
+{
+  "name": "handwrite-dfor",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "lint": "eslint \"handwritten-functions/**/*.js\"",
+    "lint:fix": "eslint \"handwritten-functions/**/*.js\" --fix",
+    "lint:watch": "onchange -i \"handwritten-functions/**/*.js\" -- npm run lint:fix"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "onchange": "^7.1.0"
+  }
+}
