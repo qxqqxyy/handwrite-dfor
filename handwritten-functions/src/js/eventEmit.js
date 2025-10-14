@@ -6,12 +6,12 @@ class EventEmit{
         if (!this.events[event]) {
             this.events[event] = [cb];
         } else {
-            this.events.push(cb);
+            this.events[event].push(cb);
         }
     }
     once(event,cb) {
-        const fn = () => {
-            cb();
+        const fn = (...args) => {
+            cb(...args);
             this.off(event, fn);
         };
         this.on(event, fn);
@@ -25,7 +25,7 @@ class EventEmit{
      }
     off(event,cb) {
         if (this.events[event]) {
-            this.events[event].filter(item => item !== cb);
+            this.events[event] = this.events[event].filter(item => item !== cb);
         }
     }
 }
