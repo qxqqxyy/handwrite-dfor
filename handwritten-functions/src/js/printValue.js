@@ -41,7 +41,7 @@ function Foo() {
 }
 
 Foo.prototype.a = function () { console.log(3) };
-Function.prototype.a = function () { console.log(4) };
+Foo.a = function () { console.log(4) };
 Foo.a();    // 4
 let obj = new Foo();
 obj.a();    // 2
