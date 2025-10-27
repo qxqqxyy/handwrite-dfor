@@ -8,3 +8,5 @@ function convert(money) {
 
     return str.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
+const money = '1234';
+console.log(convert(money));

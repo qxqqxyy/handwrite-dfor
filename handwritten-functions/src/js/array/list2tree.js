@@ -38,3 +38,10 @@ function listToTree(list, rootParentId = null) {
 
     return tree;
 }
+const list = [
+    { id: 1, name: '根节点1', parentId: 0 },
+    { id: 2, name: '子节点1-1', parentId: 1 },
+    { id: 3, name: '子节点1-2', parentId: 1 },
+    { id: 4, name: '孙节点1-2-1', parentId: 3 }
+]
+console.log(convert(list));

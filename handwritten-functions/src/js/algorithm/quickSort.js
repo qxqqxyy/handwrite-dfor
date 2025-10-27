@@ -1,20 +1,16 @@
 const divide = (arr, start, end) => {
-    const pivot = arr[start];
-    let i = start + 1;
-    let j = end;
-    while (i <= j) {
-        if (arr[i] < pivot) {
-            i++;
-        } else if (arr[j] > pivot) {
-            j--;
-        } else {
-            [arr[i++], arr[j--]] = [arr[i], arr[j]];
+    const pivot = arr[end];
+    let i = start - 1;
+    for (let j = start; j < end; j++) {
+        if (arr[j] < pivot) {
+            i += 1;
+            [arr[i], arr[j]] = [arr[j], arr[i]];
         }
     }
-    [arr[start],arr[i-1]]=[arr[i-1],arr[start]];
-    return i - 1;
+    [arr[i + 1], arr[end]] = [arr[end], arr[i + 1]];
+    return i + 1;
 }
-const quickSort = (arr,start,end) => {
+const quickSort = (arr,start = 0,end = arr.length -1) => {
     if (start < end) {
         const pivot = divide(arr, start, end);
         quickSort(arr, start, pivot-1);
@@ -22,3 +18,5 @@ const quickSort = (arr,start,end) => {
     }
     return arr;
 }
+const arr = [1, 8, 4, 2, 5];
+console.log(quickSort(arr));
