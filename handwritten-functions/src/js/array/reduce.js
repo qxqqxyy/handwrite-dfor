@@ -3,21 +3,13 @@ Array.prototype.myReduce = function(callback, initialValue){
         throw new TypeError(`${callback} is not a function`);
     }
     const arr = this;
-    let acc;
-    const length = arr.length;
-    let idx = 0;
-    if(initialValue !== undefined){
-        // 数组为空且无初始值 → 抛原生同款错误
-        if (length === 0) {
-            throw new TypeError('Reduce of empty array with no initial value');
-        }
-        acc = initialValue;
-    }else{
-        acc = arr[idx];
-        idx++;
-    }
-    for(let i = idx;i<length;i++){
-        acc = callback(acc,arr[i],i,arr);
+    let acc = initialValue !== undefined ? arr[0] : initialValue;
+    const startIndex = initialValue !== undefined ? 1 : 0;
+    for (let i = startIndex; i < arr.length; i++){
+        acc = callback(acc, arr[i], i, arr);
+
     }
     return acc;
 }
+const test = [1, 2, 3];
+console.log(test.myReduce((a, b) => { return a + b },0));
