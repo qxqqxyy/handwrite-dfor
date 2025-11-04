@@ -4,9 +4,9 @@ const request = (urls, maxNum) => {
     return new Promise((resolve, reject) => {
         let cnt = 0;    // 进行中的数量
         let resolvedCnt = 0;
-        const tmpQueue = [];
         const result = [];
         const length = urls.length;
+        let nextIndex = 0;
         // 可以继续执行新的url请求
         const run = (curUrl, i) => {
             if (cnt < maxNum && resolvedCnt !== length) {
@@ -25,21 +25,19 @@ const request = (urls, maxNum) => {
                 }).finally(() => {
                     resolvedCnt += 1;
                     cnt -= 1;
-                    if (tmpQueue.length) {
-                        const { index, url } = tmpQueue.shift();
-                        run(url, index);
-                    }
                     if (resolvedCnt === length) {
                         resolve(result);
                     }
+                    if(nextIndex<length){
+                        run(urls[nextIndex], nextIndex);
+                        nextIndex+=1;
+                    }
                 })
-            } else {
-                // 达到上限不能处理的请求
-                tmpQueue.push({ index: i, url: curUrl });
             }
         }
-        for (let j = 0; j < length; j++) {
+        for (let j = 0; j < maxNum && j<length; j++) {
             run(urls[j], j);
+            nextIndex += 1;
         }
     })
 }
